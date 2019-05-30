@@ -26,8 +26,8 @@ const char* mqtt_password = "VOTRE MOT DE PASSE MQTT";
 // définit l'int pour l'impression numérique
 // n'est plus utilisé car analogique est utilisé
 int digitalPin;
-const int AirValue = 735;   // vous devez remplacer cette valeur par Value_1
-const int WaterValue = 250;  // vous devez remplacer cette valeur par Value_2
+const int AirValue = 730;   // vous devez remplacer cette valeur par Value_1
+const int WaterValue = 256;  // vous devez remplacer cette valeur par Value_2
 int intervals = (AirValue - WaterValue)/3;
 int soilMoistureValue = 0;
 
