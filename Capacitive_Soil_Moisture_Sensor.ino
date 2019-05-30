@@ -21,6 +21,7 @@ const char* mqtt_password = "VOTRE MOT DE PASSE MQTT";
 #define in_topic "1940/statusIn"
 #define out_topic "1940/statusOut"
 #define waterLevel "1940/waterLevel"
+#define mqtt_percentage "1940/mqtt_percentage"
 
 // définit l'int pour l'impression numérique
 // n'est plus utilisé car analogique est utilisé
@@ -146,26 +147,33 @@ else if(soilMoistureValue < AirValue && soilMoistureValue > (AirValue - interval
   stat =("Sèche");
 
     }
+  
+  int percentage = map(level, AirValue, WaterValue, 0, 100);
 
    Serial.print("capteur Status: ");
    Serial.print(stat);
+   Serial.print(" | Percentage: ");
+   Serial.print(percentage);
+   Serial.println("%");
    Serial.println();
    Serial.print("capteur Level: ");
    Serial.print(level);
-   Serial.println();
-
-   delay(1000);
+   
+  delay(1000);
 
   client.loop();
 
   string lev = convertInt(level);
+  string perc = convertInt(percentage);
 
   //publish the readings
   client.publish(out_topic, stat.c_str());
   client.publish(waterLevel, lev.c_str());
+  client.publish(mqtt_percentage, perc.c_str());
   delay(1000);
   client.subscribe(out_topic);
   client.subscribe(waterLevel);
+  client.subscribe(mqtt_percentage);
   delay(1000);
 }
 
